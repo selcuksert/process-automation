@@ -1,0 +1,53 @@
+debug: false
+logging:
+  #pattern.console: 
+  #file:
+  #  name: app.log
+  level:
+    root: info
+    org.kie: debug
+    org.kie.server.services.impl.policy: info
+    sun.rmi: error
+server:
+  port: ${APP_PORT:8090}
+spring:
+  application:
+    name: RHPAM Evaluation App
+  # only required for jBPM
+  # data source configuration
+  datasource:
+    username: sa
+    password: sa
+    url: jdbc:h2:./target/spring-boot-jbpm
+    driver-class-name: org.h2.Driver
+  # hibernate configuration
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.H2Dialect
+      hibernate.show_sql: false
+      hibernate.hbm2ddl.auto: update
+      hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  # transaction manager configuration
+  jta:
+    transaction-manager-id: 1
+jbpm.executor.enabled: true
+cxf:
+  path: /rest
+kieserver:
+  serverId: evaluation
+  serverName: evaluation
+  location: http://${APP_HOST:localhost}:${APP_PORT:8090}/rest/server
+  # controllers: http://${CONTROLLER_HOST:localhost}:${CONTROLLER_PORT:8080}/business-central/rest/controller
+  addons:
+    # controller.user: ${CONTROLLER_USER:pamadmin}
+    # controller.pwd: ${CONTROLLER_PWD:redhatpam1!}
+    user: ${KIE_USER:kieserver}
+    pwd: ${KIE_PWD:kieserver1!}
+    mode: ${KIE_MODE:development}
+  jbpm.enabled: true
+  jbpmui.enabled: true
+  swagger.enabled: true
+  drools.enabled: false
+  dmn.enabled: false
+  casemgmt.enabled: false
+  optaplanner.enabled: false

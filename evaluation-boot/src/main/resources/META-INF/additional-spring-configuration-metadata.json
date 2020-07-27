@@ -1,0 +1,87 @@
+{"properties": [
+  {
+    "name": "jbpm.executor.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'jbpm.executor.enabled'"
+  },
+  {
+    "name": "kieserver.server-id",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.server-id'"
+  },
+  {
+    "name": "kieserver.location",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.location'"
+  },
+  {
+    "name": "kieserver.jbpm.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.jbpm.enabled'"
+  },
+  {
+    "name": "kieserver.jbpmui.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.jbpmui.enabled'"
+  },
+  {
+    "name": "kieserver.swagger.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.swagger.enabled'"
+  },
+  {
+    "name": "kieserver.drools.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.drools.enabled'"
+  },
+  {
+    "name": "kieserver.dmn.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.dmn.enabled'"
+  },
+  {
+    "name": "kieserver.casemgmt.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.casemgmt.enabled'"
+  },
+  {
+    "name": "kieserver.optaplanner.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.optaplanner.enabled'"
+  },
+  {
+    "name": "kieserver.controllers",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.controllers'"
+  },
+  {
+    "name": "kieserver.addons.controller.user",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.addons.controller.user'"
+  },
+  {
+    "name": "kieserver.addons.controller.pwd",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.addons.controller.pwd'"
+  },
+  {
+    "name": "kieserver.addons.pwd",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.addons.pwd'"
+  },
+  {
+    "name": "kieserver.addons.mode",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.addons.mode'"
+  },
+  {
+    "name": "kieserver.serverName",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.serverName'"
+  },
+  {
+    "name": "kieserver.addons.user",
+    "type": "java.lang.String",
+    "description": "A description for 'kieserver.addons.user'"
+  }
+]}
