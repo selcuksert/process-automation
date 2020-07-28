@@ -1,0 +1,3 @@
+[submodule "docker/docker-images"]
+	path = docker/docker-images
+	url = https://github.com/selcuksert/docker-images
