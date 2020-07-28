@@ -83,5 +83,10 @@
     "name": "kieserver.addons.user",
     "type": "java.lang.String",
     "description": "A description for 'kieserver.addons.user'"
+  },
+  {
+    "name": "custom.ldap.url",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.ldap.url'"
   }
 ]}

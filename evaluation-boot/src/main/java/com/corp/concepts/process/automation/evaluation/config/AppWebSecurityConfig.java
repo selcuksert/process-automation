@@ -2,6 +2,7 @@ package com.corp.concepts.process.automation.evaluation.config;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,14 +16,17 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-@SuppressWarnings("deprecation")
 @Configuration("kieServerSecurity")
 @EnableWebSecurity
+@SuppressWarnings("deprecation")
 public class AppWebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Value("${custom.ldap.url}")
+	private String ldapUrl;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/rest/*").authenticated().and().httpBasic();
+		http.csrf().disable().authorizeRequests().antMatchers("/rest/**").authenticated().and().httpBasic();
 	}
 
 	@Bean
@@ -30,23 +34,28 @@ public class AppWebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return NoOpPasswordEncoder.getInstance();
 	}
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
-        corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(), HttpMethod.HEAD.name(),
-                                                          HttpMethod.POST.name(), HttpMethod.DELETE.name(), HttpMethod.PUT.name()));
-        corsConfiguration.applyPermitDefaultValues();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-        return source;
-    }
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
+		corsConfiguration.setAllowCredentials(true);
+		corsConfiguration.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(), HttpMethod.HEAD.name(),
+				HttpMethod.POST.name(), HttpMethod.DELETE.name(), HttpMethod.PUT.name()));
+		corsConfiguration.applyPermitDefaultValues();
+		source.registerCorsConfiguration("/**", corsConfiguration);
+		return source;
+	}
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("kieserver").password("kieserver1!").roles("kie-server");
-		auth.inMemoryAuthentication().withUser("pamadmin").password("redhatpam1!").roles("admin");
+		auth.ldapAuthentication()
+				.userSearchBase("ou=People,dc=corp,dc=com")
+				.userSearchFilter("(uid={0})")
+	            .groupSearchBase("ou=Groups,dc=corp,dc=com")
+	            .groupSearchFilter("(uniqueMember={0})")
+				.contextSource()
+				.url(ldapUrl);
 	}
 
 }
