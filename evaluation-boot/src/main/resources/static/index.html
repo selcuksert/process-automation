@@ -21,33 +21,133 @@
 	integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
 	crossorigin="anonymous"></script>
 
-<script type="text/javascript">
-	function getProcessData() {
-		let dataElem = document.getElementById('data_div');
-		$.getJSON( "/rest/server/containers/evaluation-1.0.0-SNAPSHOT/processes/instances/1/variables/instances", null, function( data ) {
-			dataElem.innerText = JSON.stringify(data);
-		});				
-	}
+<script src="/scripts/app.js">
+
 </script>
+
+<style type="text/css">
+body>div.ui.pointing.secondary.menu>div>span {
+	color: blue
+}
+</style>
+
 </head>
 <body>
-	<div class="ui one item attached stackable menu">
-		<a class="item" id="connect" onclick="getProcessData();"> <i
-			class="play icon"></i> Test
-		</a>
-	</div>
-
-	<div class="ui container segments">
-		<div class="ui inverted teal segment">
-			<h2 class="ui huge header">
-				Performance
-				<div class="sub header" id="subheader">Evaluation</div>
-			</h2>
+	<div class="ui pointing secondary menu">
+		<div class="header item">
+			<span>Evaluation Portal</span>
 		</div>
-		<div class="ui segment">
-			<div id="data_div" style="width: 100%; height: 400px;"></div>
+		<a class="item active" data-tab="first">Evaluation Request</a> <a
+			class="item" data-tab="second">Active Processes</a> <a class="item"
+			data-tab="third">Work Items</a>
+		<div class="right menu">
+			<span class="ui item"> User: </span>
+			<div class="ui pointing dropdown link item">
+				<div class="text"></div>
+				<i class="dropdown icon"></i>
+			</div>
 		</div>
 	</div>
 
+	<div class="ui tab segment active" data-tab="first">
+		<div class="one column stackable ui grid">
+			<div class="column">
+				<div class="row">
+					<div class="ui input focus">
+						<input type="text" placeholder="Employee" id="employee">
+					</div>
+				</div>
+				<div class="row">
+					<div class="ui input focus">
+						<input type="text" placeholder="Reason" id="reason">
+					</div>
+				</div>
+				<div class="row">
+					<button class="ui button" onclick="submitRequest();">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui tab segment" data-tab="second">
+		<div class="one column stackable ui grid">
+			<div class="column">
+				<button class="ui button" onclick="getProcessData('variables');">
+					Get Active Processes</button>
+				<div class="ui segment">
+					<div class="ui relaxed divided list">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui tab segment" data-tab="third">
+		<div class="one column stackable ui grid">
+			<div class="column">
+				<button class="ui button" onclick="getProcessData('workitems');">
+					Get Active Processes</button>
+				<div class="ui segment">
+					<div class="ui relaxed divided list">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui modal" id="status">
+		<i class="close icon"></i>
+		<div class="header">Process</div>
+		<div class="content">
+			<div class="ui list">
+				<div class="item">
+					<div class="header">Submitted</div>
+					ID: <span id="process-id"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui modal" id="details">
+		<i class="close icon"></i>
+		<div class="header">Evaluation</div>
+		<div class="content">
+			<div class="ui list">
+				<div class="item">
+					<div class="header">Employee</div>
+					<span id="details-employee"></span>
+				</div>
+				<div class="item">
+					<div class="header">Reason</div>
+					<span id="details-reason"></span>
+				</div>
+				<div class="item">
+					<div class="header">Initiated By</div>
+					<span id="details-init-by"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="ui modal" id="workitems">
+		<i class="close icon"></i>
+		<div class="header">Work Item</div>
+		<div class="content">
+			<div class="ui list">
+				<div class="item">
+					<div class="header">Comment</div>
+					<span id="workitems-comment"></span>
+				</div>
+				<div class="item">
+					<div class="header">Reason</div>
+					<span id="workitems-reason"></span>
+				</div>
+				<div class="item">
+					<div class="header">Message</div>
+					<div id="workitems-message"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

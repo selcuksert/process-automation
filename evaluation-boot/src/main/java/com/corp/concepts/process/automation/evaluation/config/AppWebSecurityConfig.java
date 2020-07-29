@@ -2,6 +2,8 @@ package com.corp.concepts.process.automation.evaluation.config;
 
 import java.util.Arrays;
 
+import org.kie.api.task.UserGroupCallback;
+import org.kie.internal.identity.IdentityProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.corp.concepts.process.automation.evaluation.security.CustomUserGroupCallback;
+
 @Configuration("kieServerSecurity")
 @EnableWebSecurity
 @SuppressWarnings("deprecation")
@@ -29,9 +33,20 @@ public class AppWebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests().antMatchers("/rest/**").authenticated().and().httpBasic();
 	}
 
+	/**
+	 * Used {@link NoOpPasswordEncoder} for testing purposes. Must be replaced with
+	 * a more secure one in production usage.
+	 * 
+	 * @return PasswordEncoder
+	 */
 	@Bean
 	public static PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
+	}
+
+	@Bean("userGroupCallback")
+	public UserGroupCallback getUserGroupCallback(IdentityProvider identityProvider) {
+		return new CustomUserGroupCallback(identityProvider);
 	}
 
 	@Bean
@@ -49,13 +64,9 @@ public class AppWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.ldapAuthentication()
-				.userSearchBase("ou=People,dc=corp,dc=com")
-				.userSearchFilter("(uid={0})")
-	            .groupSearchBase("ou=Groups,dc=corp,dc=com")
-	            .groupSearchFilter("(uniqueMember={0})")
-				.contextSource()
-				.url(ldapUrl);
+		auth.ldapAuthentication().groupRoleAttribute("cn").userSearchBase("ou=People,dc=corp,dc=com")
+				.userSearchFilter("(uid={0})").groupSearchBase("ou=Groups,dc=corp,dc=com")
+				.groupSearchFilter("(uniqueMember={0})").rolePrefix("").contextSource().url(ldapUrl);
 	}
 
 }

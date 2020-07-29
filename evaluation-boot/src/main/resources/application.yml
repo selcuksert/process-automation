@@ -5,9 +5,10 @@ logging:
   #  name: app.log
   level:
     root: info
-    org.kie: debug
+    org.kie: error
     org.kie.server.services.impl.policy: info
     sun.rmi: error
+    org.springframework.security: info
 server:
   port: ${APP_PORT:8090}
 custom:
