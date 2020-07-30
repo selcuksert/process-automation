@@ -23,6 +23,9 @@ public class EvaluationApplication {
 	}
 
 	private static void setupKie() {
+		System.setProperty("org.jbpm.ht.callback", "ldap");
+		System.setProperty("org.jbpm.ht.userinfo", "ldap");
+
 		String groupId = System.getProperty("KJAR_GROUP_ID", "evaluation");
 		String artifactId = System.getProperty("KJAR_ARTIFACT_ID", "evaluation");
 		String version = System.getProperty("KJAR_VERSION", "1.0.0-SNAPSHOT");

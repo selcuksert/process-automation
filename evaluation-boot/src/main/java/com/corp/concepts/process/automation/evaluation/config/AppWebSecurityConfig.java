@@ -2,8 +2,8 @@ package com.corp.concepts.process.automation.evaluation.config;
 
 import java.util.Arrays;
 
-import org.kie.api.task.UserGroupCallback;
-import org.kie.internal.identity.IdentityProvider;
+//import org.kie.api.task.UserGroupCallback;
+//import org.kie.internal.identity.IdentityProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.corp.concepts.process.automation.evaluation.security.CustomUserGroupCallback;
+//import com.corp.concepts.process.automation.evaluation.security.CustomUserGroupCallback;
 
 @Configuration("kieServerSecurity")
 @EnableWebSecurity
@@ -44,11 +44,13 @@ public class AppWebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return NoOpPasswordEncoder.getInstance();
 	}
 
+	/* 
 	@Bean("userGroupCallback")
 	public UserGroupCallback getUserGroupCallback(IdentityProvider identityProvider) {
 		return new CustomUserGroupCallback(identityProvider);
 	}
-
+	*/
+	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

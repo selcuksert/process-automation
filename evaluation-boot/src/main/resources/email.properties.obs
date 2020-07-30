@@ -1,0 +1,5 @@
+mail.smtp.host=
+mail.smtp.port=
+mail.username=
+mail.password=
+mail.tls=

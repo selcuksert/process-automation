@@ -3,12 +3,14 @@ logging:
   #pattern.console: 
   #file:
   #  name: app.log
+  #  max-size: 100MB
   level:
     root: info
-    org.kie: error
+    org.kie: info
     org.kie.server.services.impl.policy: info
     sun.rmi: error
     org.springframework.security: info
+    org.jbpm: info
 server:
   port: ${APP_PORT:8090}
 custom:

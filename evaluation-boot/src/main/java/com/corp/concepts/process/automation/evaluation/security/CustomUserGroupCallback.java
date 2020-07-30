@@ -19,14 +19,12 @@ public class CustomUserGroupCallback implements UserGroupCallback {
 
 	@Override
 	public boolean existsUser(String userId) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean existsGroup(String groupId) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
