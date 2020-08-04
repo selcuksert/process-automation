@@ -15,7 +15,7 @@ server:
   port: ${APP_PORT:8090}
 custom:
   ldap:
-    url: ldap://${LDAP_HOST:localhost}:${LDAP_PORT:389}
+    url: ${LDAP_PROTOCOL:ldap}://${LDAP_HOST:localhost}:${LDAP_PORT:389}
 spring:
   application:
     name: RHPAM Evaluation App
@@ -42,13 +42,13 @@ cxf:
 kieserver:
   serverId: evaluation
   serverName: evaluation
-  location: http://${APP_HOST:localhost}:${APP_PORT:8090}/rest/server
-  # controllers: http://${CONTROLLER_HOST:localhost}:${CONTROLLER_PORT:8080}/business-central/rest/controller
+  location: ${APP_PROTOCOL:http}://${APP_HOST:localhost}:${APP_PORT:8090}/rest/server
+  # controllers: ${CONTROLLER_PROTOCOL:http}://${CONTROLLER_HOST:localhost}:${CONTROLLER_PORT:8080}/business-central/rest/controller
   addons:
     # controller.user: ${CONTROLLER_USER:pamadmin}
     # controller.pwd: ${CONTROLLER_PWD:redhatpam1!}
-    user: ${KIE_USER:kieserver}
-    pwd: ${KIE_PWD:kieserver1!}
+    # user: ${KIE_USER:kieserver}
+    # pwd: ${KIE_PWD:kieserver1!}
     mode: ${KIE_MODE:development}
   jbpm.enabled: true
   jbpmui.enabled: true
