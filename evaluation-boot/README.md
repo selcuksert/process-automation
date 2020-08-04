@@ -3,6 +3,10 @@ This module is an implementation of unmanaged KIE Server instance that uses exte
 
 This implementation uses embedded H2 DB for process data persistence where it can be changed within [application.yml](/evaluation-boot/src/main/resources/application.yml) using `spring.datasource.*` and `spring.jpa.*` properties.
 
+## Sample UI
+The project comes with a primitive UI based on [Semantic](https://semantic-ui.com/) UI framework reached via `${APP_PROTOCOL}`://`${APP_HOST}`:`${APP_PORT}` that brings the ability to start an evaluation process, query active processes, task parameters and work items:
+![UI](/doc/images/ui.png)
+
 ## Configuration
 Both environment variables and the KIE SpringBoot auto-configuration parameters are used defined in [`KieServerProperties`](https://github.com/kiegroup/droolsjbpm-integration/blob/master/kie-spring-boot/kie-spring-boot-autoconfiguration/kie-server-spring-boot-autoconfiguration/src/main/java/org/kie/server/springboot/autoconfiguration/KieServerProperties.java). There are several configuration parameters need to be considered:
 | Parameter Name | Default Value | [application.yml](/evaluation-boot/src/main/resources/application.yml) property | Description |
@@ -30,7 +34,7 @@ Both environment variables and the KIE SpringBoot auto-configuration parameters 
 ## Authentication and Authorization
 The project uses LDAP for user base and AuthN & AuthZ purposes. The users are defined using [LDAP configuration file](https://github.com/selcuksert/docker-images/blob/master/redhat/pam/ldapserver/config/ldif/bootstrap.ldif). The custom `WebSecurityConfigurerAdapter` implementation [`AppWebSecurityConfig`](/evaluation-boot/src/main/java/com/corp/concepts/process/automation/evaluation/config/AppWebSecurityConfig.java) enables a configuration that uses group names defined in LDAP as roles.
 
-It is important to note that this custom class uses insecure methods such as `NoOpPasswordEncoder`, wildcard paths for CORS configuration. For enterprise and/or production usages this class should be re-implemented using best practices, configurations an measures in SpringBoot application security.
+<b>It is important to note that this custom class uses insecure methods such as `NoOpPasswordEncoder`, wildcard paths for CORS configuration. For enterprise and/or production usages this class should be re-implemented using best practices, configurations and measures in application security.</b>
 
 ## Swagger Interface
 This implementation enables Swagger (`kieserver.swagger.enabled` property in application.yml). One can reach the Swagger UI via (AuthN needed using KIE Server users defined in ldap config file):
