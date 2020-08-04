@@ -12,7 +12,6 @@ Both environment variables and the KIE SpringBoot auto-configuration parameters 
 | KJAR_GROUP_ID | evaluation | Set in [main class](/evaluation-boot/src/main/java/com/corp/concepts/process/automation/evaluation/EvaluationApplication.java) | Maven group ID of KJAR artifact |
 | KJAR_ARTIFACT_ID | evaluation | Set in [main class](/evaluation-boot/src/main/java/com/corp/concepts/process/automation/evaluation/EvaluationApplication.java) | Maven artifact ID of KJAR artifact |
 | KJAR_VERSION | 1.0.0-SNAPSHOT | Set in [main class](/evaluation-boot/src/main/java/com/corp/concepts/process/automation/evaluation/EvaluationApplication.java) | Maven version of KJAR artifact |
-| APP_PORT | 8090 | server.port | Default port for the embedded server |
 | LDAP_PROTOCOL | ldap | custom.ldap.url | LDAP connection protocol. For secure communication this should be ldaps. |
 | LDAP_HOST | localhost | custom.ldap.url | Hostname of LDAP server instance |
 | LDAP_PORT | 389 | custom.ldap.url | Port of LDAP server instance |
@@ -27,3 +26,13 @@ Both environment variables and the KIE SpringBoot auto-configuration parameters 
 | KIE_USER | kieserver | kieserver.addons.user | The user name used to connect with the KIE Server from the RHPAM controller, required when running in managed mode. |
 | KIE_PWD | kieserver1! | kieserver.addons.pwd | The password used to connect with the KIE Server from the RHPAM controller, required when running in managed mode. |
 | KIE_MODE | development | kieserver.addons.mode | KIE Server environment mode. You can set KIE Server to run in `production` mode or in `development` mode. Development mode provides a flexible deployment policy that enables to update existing deployment units (KIE containers) while maintaining active process instances for small changes. It also enables to reset the deployment unit state before updating active process instances for larger changes. Production mode is optimal for production environments, where each deployment creates a new deployment unit. |
+
+## Authentication and Authorization
+The project uses LDAP for user base and AuthN & AuthZ purposes. The users are defined using [LDAP configuration file](https://github.com/selcuksert/docker-images/blob/master/redhat/pam/ldapserver/config/ldif/bootstrap.ldif). The custom `WebSecurityConfigurerAdapter` implementation [`AppWebSecurityConfig`](/evaluation-boot/src/main/java/com/corp/concepts/process/automation/evaluation/config/AppWebSecurityConfig.java) enables a configuration that uses group names defined in LDAP as roles.
+
+It is important to note that this custom class uses insecure methods such as `NoOpPasswordEncoder`, wildcard paths for CORS configuration. For enterprise and/or production usages this class should be re-implemented using best practices, configurations an measures in SpringBoot application security.
+
+## Swagger Interface
+This implementation enables Swagger (`kieserver.swagger.enabled` property in application.yml). One can reach the Swagger UI via (AuthN needed using KIE Server users defined in ldap config file):
+`${APP_PROTOCOL}`://`${APP_HOST}`:`${APP_PORT}`/rest/api-docs/`${APP_PROTOCOL}`://`${APP_HOST}`:`${APP_PORT}`/rest/swagger.json
+
