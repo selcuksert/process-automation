@@ -1,5 +1,5 @@
 ## Adding remote Maven server for dependency management
-
+Append following in pom.xml before project tag close:
 ```XML
   <distributionManagement>
     <snapshotRepository>
