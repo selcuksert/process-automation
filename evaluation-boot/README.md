@@ -7,6 +7,23 @@ This implementation uses embedded H2 DB for process data persistence where it ca
 The project comes with a primitive UI based on [Semantic](https://semantic-ui.com/) UI framework reached via `${APP_PROTOCOL}`://`${APP_HOST}`:`${APP_PORT}` that brings the ability to start an evaluation process, query active processes, task parameters and work items:
 ![UI](/doc/images/ui.png)
 
+As this is a demo project and the for the sake of brevity there is no login page & process added. Instead credentials are stored in a JSON constant within [`app.js`](/evaluation-boot/src/main/resources/static/scripts/app.js) that are the same with the ones in [LDAP configuration file](https://github.com/selcuksert/docker-images/blob/master/redhat/pam/ldapserver/config/ldif/bootstrap.ldif), and the users can be switched using right top dropdown menu:
+```JSON
+const testCredentials = [{
+	username: 'kieserver',
+	password: 'kieserver1!'
+}, {
+	username: 'pamadmin',
+	password: 'redhatpam1!'
+}, {
+	username: 'hruser',
+	password: 'redhatpam1!'
+}, {
+	username: 'pmuser',
+	password: 'redhatpam1!'
+}];
+```
+
 ## Configuration
 Both environment variables and the KIE SpringBoot auto-configuration parameters are used defined in [`KieServerProperties`](https://github.com/kiegroup/droolsjbpm-integration/blob/master/kie-spring-boot/kie-spring-boot-autoconfiguration/kie-server-spring-boot-autoconfiguration/src/main/java/org/kie/server/springboot/autoconfiguration/KieServerProperties.java). There are several configuration parameters need to be considered:
 | Parameter Name | Default Value | [application.yml](/evaluation-boot/src/main/resources/application.yml) property | Description |
