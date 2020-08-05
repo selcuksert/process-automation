@@ -1,3 +1,7 @@
 body>div.ui.pointing.secondary.menu>div>span {
 	color: blue
 }
+
+pre {
+    white-space: pre-wrap;
+}

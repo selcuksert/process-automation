@@ -29,8 +29,11 @@
 		<div class="header item">
 			<span>Evaluation Portal</span>
 		</div>
-		<a class="item active" data-tab="first">Evaluation Request</a> <a class="item" data-tab="second">Active
-			Processes</a> <a class="item" data-tab="third">Work Items</a>
+		<a class="item active" data-tab="request">Evaluation Request</a> 
+		<a class="item" data-tab="processes">Active Processes</a> 
+		<a class="item" data-tab="tasks">Tasks</a>
+		<a class="item" data-tab="workitems">Work Items</a>
+		<a class="item" data-tab="image">Process Diagram</a>
 		<div class="right menu">
 			<span class="ui item"> User: </span>
 			<div class="ui pointing dropdown link item">
@@ -40,7 +43,7 @@
 		</div>
 	</div>
 
-	<div class="ui tab segment active" data-tab="first">
+	<div class="ui tab segment active" data-tab="request">
 		<div class="one column stackable ui grid">
 			<div class="column">
 				<div class="row">
@@ -65,7 +68,7 @@
 		</div>
 	</div>
 
-	<div class="ui tab segment" data-tab="second">
+	<div class="ui tab segment" data-tab="processes">
 		<div class="one column stackable ui grid">
 			<div class="column">
 				<button class="ui button" onclick="getProcessData('variables');">
@@ -78,13 +81,37 @@
 		</div>
 	</div>
 
-	<div class="ui tab segment" data-tab="third">
+	<div class="ui tab segment" data-tab="tasks">
+		<div class="one column stackable ui grid">
+			<div class="column">
+				<button class="ui button" id="get-task-button" onclick="getTasks();">
+					Get Tasks For Selected User</button>
+				<div class="ui segment">
+					<div class="ui relaxed divided list">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui tab segment" data-tab="workitems">
 		<div class="one column stackable ui grid">
 			<div class="column">
 				<button class="ui button" onclick="getProcessData('workitems');">
 					Get Active Processes</button>
 				<div class="ui segment">
 					<div class="ui relaxed divided list">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui tab segment" data-tab="image">
+		<div class="one column stackable ui grid">
+			<div class="column">
+				<div class="ui segment">
+					<div id="process-image">
 					</div>
 				</div>
 			</div>
@@ -149,6 +176,52 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="ui modal" id="task">
+		<i class="close icon"></i>
+		<div class="header">Task</div>
+		<div class="content">
+			<div class="ui list">
+				<div class="item">
+					<div class="header">ID</div>
+					<span id="task-id"></span>
+				</div>
+				<div class="item">
+					<div class="header">Name</div>
+					<span id="task-name"></span>
+				</div>
+				<div class="item">
+					<div class="header">Subject</div>
+					<span id="task-subject"></span>
+				</div>
+				<div class="item">
+					<div class="header">Description</div>
+					<span id="task-description"></span>
+				</div>
+				<div class="item">
+					<div class="header">Owner</div>
+					<span id="task-owner"></span>
+				</div>
+				<div class="item">
+					<div class="header">Input</div>
+					<pre id="task-input"></pre>
+				</div>
+				<div class="item">
+					<div class="header">Output</div>
+					<pre id="task-output"></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="ui modal" id="error">
+		<i class="close icon"></i>
+		<div class="header">Error</div>
+		<div class="content">
+		  <span id="error-message"></span>
+		</div>
+	</div>
+	
 </body>
 
 </html>
