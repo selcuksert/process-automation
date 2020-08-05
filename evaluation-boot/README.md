@@ -8,7 +8,7 @@ The project comes with a primitive UI based on [Semantic](https://semantic-ui.co
 ![UI](/doc/images/ui.png)
 
 As this is a demo project and the for the sake of brevity there is no login page & process added. Instead credentials are stored in a JSON constant within [`app.js`](/evaluation-boot/src/main/resources/static/scripts/app.js) that are the same with the ones in [LDAP configuration file](https://github.com/selcuksert/docker-images/blob/master/redhat/pam/ldapserver/config/ldif/bootstrap.ldif), and the users can be switched using right top dropdown menu:
-```JSON
+```javascript
 const testCredentials = [{
 	username: 'kieserver',
 	password: 'kieserver1!'
