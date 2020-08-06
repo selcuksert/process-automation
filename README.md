@@ -7,7 +7,7 @@ RHPAM has the ability to deploy process engines within SpringBoot apps. For deta
 This project utilizes sample business project on [employee evaluation](/Evaluation_Process) which comes with RHPAM installation:
 ![Evaluation BPM project](/doc/images/evaluation.bpmn.png)
 
-The project has also a very basic UI based on [Semantic](https://semantic-ui.com/) UI framework that brings the ability to start an evaluation process, query active processes, task parameters and work items:
+The project has also a very basic UI based on [Semantic](https://semantic-ui.com/) UI framework that brings the ability to start an evaluation process, query active processes, tasks, task parameters and work items:
 ![UI](/doc/images/ui.png)
 
 ## Architecture
