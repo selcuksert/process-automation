@@ -63,7 +63,7 @@ Authorization successful
 ```
 In order to use another AuthN & AuthZ framework/application this class should be changed and custom `UserInfo` and `UserGroupCallback` implementations should be introduced and application.yml configurations should be modified according to the table above. As an example please refer to [`CustomUserGroupCallback`](/evaluation-boot/src/main/java/com/corp/concepts/process/automation/evaluation/security/CustomUserGroupCallback.java).
 
-<b>It is important to note that this custom class uses insecure methods such as `NoOpPasswordEncoder`, wildcard paths for CORS configuration. For enterprise and/or production usages this class should be re-implemented using best practices, configurations and measures in application security.</b>
+**It is important to note that this custom class uses insecure methods such as `NoOpPasswordEncoder`, wildcard paths for CORS configuration. For enterprise and/or production usages this class should be re-implemented using best practices, configurations and measures in application security.**
 
 ## Swagger Interface
 This implementation enables Swagger (`kieserver.swagger.enabled` property in application.yml). One can reach the Swagger UI via (AuthN needed using KIE Server users defined in ldap config file):
