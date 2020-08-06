@@ -9,7 +9,7 @@
     <dc:subject>RedHat Process Automation Reference Architecture</dc:subject>
     <dc:description>RedHat Process Automation Reference Architecture modeling with Archi</dc:description>
     <dc:publisher>Selcuk SERT</dc:publisher>
-    <dc:date>05.08.2020</dc:date>
+    <dc:date>06.08.2020</dc:date>
     <dc:type>Archimate</dc:type>
     <dc:format>Archimate 3.0</dc:format>
     <dc:language>English</dc:language>
@@ -476,7 +476,7 @@
             </style>
           </node>
         </node>
-        <node identifier="id-18c1bd52-e622-4071-806c-846162a58b27" elementRef="id-eb1b8812-5e26-40b6-9eb6-2385cee2b2a6" xsi:type="Element" x="787" y="732" w="180" h="36">
+        <node identifier="id-18c1bd52-e622-4071-806c-846162a58b27" elementRef="id-eb1b8812-5e26-40b6-9eb6-2385cee2b2a6" xsi:type="Element" x="757" y="707" w="180" h="36">
           <style>
             <fillColor r="201" g="231" b="183" a="100" />
             <lineColor r="92" g="92" b="92" a="100" />
