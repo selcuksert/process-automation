@@ -250,7 +250,18 @@ function getProcessImage() {
 		    $('#error-message').text(error.responseText);
 		    $('#error').modal('show');
 		}
-	});}
+	});
+}
+
+function zoomInProcessDiagram() {
+	let svgElem=$('svg > g');
+    svgElem.attr("transform", "scale(2)");
+}
+
+function zoomOutProcessDiagram() {
+	let svgElem=$('svg > g');
+    svgElem.attr("transform", "scale(1)");
+}
 
 $(document).ready(function () {
 	generateDropDownData();
