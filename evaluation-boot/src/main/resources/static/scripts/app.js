@@ -32,7 +32,6 @@ function getProcessData(dataType) {
 				+ btoa(username + ":" + password)
 		},
 		success: function (data) {
-			$("#active-process-list").empty();
 			let instanceData = data["process-instance"];
 			instanceData.forEach(instance => processListElem.append('<div class="item"><i class="large cog middle aligned icon"></i><div class="content"><a class="header" onclick="showProcessDetails(\'' + dataType + '\');">' + instance["process-instance-id"] + '</a><div class="description">Started at: ' + new Date(instance["start-date"]["java.util.Date"]).toLocaleString("tr-TR") + '</div></div></div>'));
 		},
@@ -63,7 +62,6 @@ function getTasks(listElem) {
 				+ btoa(username + ":" + password)
 		},
 		success: function (data) {
-			$("#active-process-list").empty();
 			let taskData = data["task-summary"];
 			taskData.forEach(task => taskListElem.append('<div class="item"><i class="large tasks middle aligned icon"></i><div class="content"><a class="header" onclick="getTaskDetails('+task["task-id"]+');">' + task["task-id"] + ' | ' + task["task-name"] + ' | ' + task["task-status"] + '</a><div class="description"><div class="ui icon buttons"><button class="ui button" onclick="startTask('+task["task-id"]+');"><i class="play icon"></i></button><button class="ui button" onclick="completeTask('+task["task-id"]+');"><i class="check icon"></i></button></div></div></div></div>'));
 		},
@@ -74,7 +72,37 @@ function getTasks(listElem) {
 	});	
 }
 
-function startTask(taskId) {
+function getBusinessAdminTasks(listElem) {   
+    let taskListElem = undefined; 
+    
+    if(listElem === undefined) {
+      	taskListElem = $(event.target).parent().find('div.ui.relaxed.divided.list');
+	}
+	else {
+		taskListElem = listElem;
+	}
+    
+	taskListElem.empty();
+	$.ajax({
+		type: "GET",
+		url: "/rest/server/queries/tasks/instances/admins?page=0&pageSize=0&sortOrder=true",
+		dataType: "json",
+		headers: {
+			"Authorization": "Basic "
+				+ btoa(username + ":" + password)
+		},
+		success: function (data) {
+			let taskData = data["task-summary"];
+			taskData.forEach(task => taskListElem.append('<div class="item"><i class="large tasks middle aligned icon"></i><div class="content"><a class="header" onclick="getTaskDetails('+task["task-id"]+');">' + task["task-id"] + ' | ' + task["task-name"] + ' | ' + task["task-status"] + '</a><div class="description"><div class="ui icon buttons"><button class="ui button" onclick="startTask('+task["task-id"]+', true);"><i class="play icon"></i></button><button class="ui button" onclick="completeTask('+task["task-id"]+', true);"><i class="check icon"></i></button></div></div></div></div>'));
+		},
+		error: function(error) {
+		    $('#error-message').text(error.responseText);
+		    $('#error').modal('show');
+		}
+	});	
+}
+
+function startTask(taskId, isBusiness) {
     let taskListElem = $(event.target).offsetParent().find('div.ui.relaxed.divided.list');
 	$.ajax({
 		type: "PUT",
@@ -87,8 +115,13 @@ function startTask(taskId) {
 		},
 		statusCode: {
 			201: function (data) {
-				getTasks(taskListElem);
-			}
+				if(isBusiness && isBusiness === true) {
+					getBusinessAdminTasks(taskListElem);
+				}
+				else {
+					getTasks(taskListElem);
+				}
+		    }
 		},
 		error: function(error) {
 		    $('#error-message').text(error.responseText);
@@ -97,7 +130,7 @@ function startTask(taskId) {
 	});
 }
 
-function completeTask(taskId) {
+function completeTask(taskId, isBusiness) {
     let taskListElem = $(event.target).offsetParent().find('div.ui.relaxed.divided.list');
 	$.ajax({
 		type: "PUT",
@@ -110,7 +143,12 @@ function completeTask(taskId) {
 		},
 		statusCode: {
 			201: function (data) {
-				getTasks(taskListElem);
+				if(isBusiness && isBusiness === true) {
+					getBusinessAdminTasks(taskListElem);
+				}
+				else {
+					getTasks(taskListElem);
+				}
 			}
 		},
 		error: function(error) {
@@ -278,9 +316,9 @@ $(document).ready(function () {
 
 	$('.ui.dropdown').dropdown({
 		onChange: function (value, name) {
+			$("#employee").val(name);
 			username = name;
 			password = value;
-			$('#get-task-button').html("Get Tasks for " + name);
 		},
 		values: dropDownData
 	});
