@@ -1,5 +1,5 @@
 # process-automation
-Sample project on process automation that aims to <ins>demonstrate</ins> [SpringBoot](/evaluation-boot) based [RedHat Process Automation Manager (RHPAM)](https://redhat.com/en/technologies/jboss-middleware/process-automation-manager) utilization.
+Sample project on process automation that aims to <ins>demonstrate</ins> SpringBoot ([see project documentation](/evaluation-boot)) based [RedHat Process Automation Manager (RHPAM)](https://redhat.com/en/technologies/jboss-middleware/process-automation-manager) utilization.
 
 **For enterprise and/or production usages the project should be updated/re-implemented using best practices, configurations and measures in application development and security.**
 
