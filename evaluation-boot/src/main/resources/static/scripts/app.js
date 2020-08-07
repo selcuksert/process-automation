@@ -63,7 +63,10 @@ function getTasks(listElem) {
 		},
 		success: function (data) {
 			let taskData = data["task-summary"];
-			taskData.forEach(task => taskListElem.append('<div class="item"><i class="large tasks middle aligned icon"></i><div class="content"><a class="header" onclick="getTaskDetails('+task["task-id"]+');">' + task["task-id"] + ' | ' + task["task-name"] + ' | ' + task["task-status"] + '</a><div class="description"><div class="ui icon buttons"><button class="ui button" onclick="startTask('+task["task-id"]+');"><i class="play icon"></i></button><button class="ui button" onclick="completeTask('+task["task-id"]+');"><i class="check icon"></i></button></div></div></div></div>'));
+			taskData.forEach(task => {
+				let disabled = task["task-status"] === "Completed" ? "disabled" : ""
+				taskListElem.append('<div class="item"><i class="large tasks middle aligned icon"></i><div class="content"><a class="header" onclick="getTaskDetails('+task["task-id"]+', \''+ disabled +'\');">' + task["task-id"] + ' | ' + task["task-name"] + ' | ' + task["task-status"] + '</a><div class="description"><button class="ui right labeled '+disabled+' icon button" onclick="startTask('+task["task-id"]+');"><i class="play icon"></i>Start</button><button class="ui right labeled '+disabled+' icon button" onclick="completeTask('+task["task-id"]+');"><i class="check icon"></i>Complete</button></div></div></div>');
+			});
 		},
 		error: function(error) {
 		    $('#error-message').text(error.responseText);
@@ -93,7 +96,7 @@ function getBusinessAdminTasks(listElem) {
 		},
 		success: function (data) {
 			let taskData = data["task-summary"];
-			taskData.forEach(task => taskListElem.append('<div class="item"><i class="large tasks middle aligned icon"></i><div class="content"><a class="header" onclick="getTaskDetails('+task["task-id"]+');">' + task["task-id"] + ' | ' + task["task-name"] + ' | ' + task["task-status"] + '</a><div class="description"><div class="ui icon buttons"><button class="ui button" onclick="startTask('+task["task-id"]+', true);"><i class="play icon"></i></button><button class="ui button" onclick="completeTask('+task["task-id"]+', true);"><i class="check icon"></i></button></div></div></div></div>'));
+			taskData.forEach(task => taskListElem.append('<div class="item"><i class="large tasks middle aligned icon"></i><div class="content"><a class="header" onclick="getTaskDetails('+task["task-id"]+');">' + task["task-id"] + ' | ' + task["task-name"] + ' | ' + task["task-status"] + '</a><div class="description"><button class="ui right labeled icon button" onclick="startTask('+task["task-id"]+', true);"><i class="play icon"></i>Start</button><button class="ui right labeled icon button" onclick="completeTask('+task["task-id"]+', true);"><i class="check icon"></i>Complete</button></div></div></div>'));
 		},
 		error: function(error) {
 		    $('#error-message').text(error.responseText);
@@ -158,7 +161,11 @@ function completeTask(taskId, isBusiness) {
 	});
 }
 
-function getTaskDetails(taskId) {
+function getTaskDetails(taskId, disabled) {
+	if(disabled && disabled === "disabled") {
+		return;
+	}
+	
 	$.ajax({
 		type: "GET",
 		url: "/rest/server/containers/" + containerName + "/tasks/" + taskId + "?withInputData=true&withOutputData=true&withAssignments=true",
@@ -249,7 +256,7 @@ function submitRequest() {
 				+ btoa(username + ":" + password)
 		},
 		data: JSON.stringify({
-			employee: $("#employee").val(),
+			employee: $("#employee").text(),
 			performance: $("#performance").val(),
 			reason: $("#reason").val()
 		}),
@@ -257,7 +264,6 @@ function submitRequest() {
 			201: function (data) {
 				$('#process-id').text(data.responseText);
 				$('#status').modal('show');
-				$("#employee").val('');
 				$("#performance").val(0);
 				$("#reason").val('');
 			}
@@ -316,7 +322,7 @@ $(document).ready(function () {
 
 	$('.ui.dropdown').dropdown({
 		onChange: function (value, name) {
-			$("#employee").val(name);
+			$("#employee").text(name);
 			username = name;
 			password = value;
 		},
