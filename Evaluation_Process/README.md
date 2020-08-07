@@ -9,5 +9,3 @@ Append following in pom.xml before project tag close:
     </snapshotRepository>
   </distributionManagement>
 ```
-## Artifactory LDAP Configuration
-![Artifactory-LDAP](/doc/images/artifactory-ldap.png)
