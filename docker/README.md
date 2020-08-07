@@ -10,6 +10,15 @@
 * **RedHat repos:** You need to add remote repositories listed in [RedHat repositories](https://access.redhat.com/maven-repository) page.
 * **Virtual repo:** You need to add a virtual repo as follows and use that within pom.xml of business project:
    ![Artifactory-Virtual](/doc/images/artifactory-virtual-repo.png)
+   ```XML
+     <distributionManagement>
+       <snapshotRepository>
+           <id>snapshots</id>
+           <name>libs-snapshots-local</name>
+           <url>http://mavenserver:8081/artifactory/pam</url>
+       </snapshotRepository>
+     </distributionManagement>
+   ```
 ## RHPAM Maven Integration
 * Use custom [`settings.xml`](https://github.com/selcuksert/docker-images/blob/master/redhat/pam/base/config/settings.xml)
 * Set `kie.maven.settings.custom` property with `/usr/share/maven/conf/settings.xml` in [`standalone-full.xml`](https://github.com/selcuksert/docker-images/blob/master/redhat/pam/base/config/standalone-full.xml)
