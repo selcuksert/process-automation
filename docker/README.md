@@ -7,7 +7,7 @@
     ![Artifactory-LDAP](/doc/images/artifactory-ldap.png)
     * Logout and login with pamadmin user. Artifactory automatically adds the user to its user DB.
     * Logout and login with admin user. Add deploy permisson to libs-release-local and libs-snapshot-local repos for pamadmin.
-* **RedHat repos:** You need to add remote [RedHat repositories](https://access.redhat.com/maven-repository)
+* **RedHat repos:** You need to add remote repositories listed in [RedHat repositories](https://access.redhat.com/maven-repository) page.
 ## RHPAM Maven Integration
 * Use custom [`settings.xml`](https://github.com/selcuksert/docker-images/blob/master/redhat/pam/base/config/settings.xml)
 * Set `kie.maven.settings.custom` property with `/usr/share/maven/conf/settings.xml` in [`standalone-full.xml`](https://github.com/selcuksert/docker-images/blob/master/redhat/pam/base/config/standalone-full.xml)
