@@ -9,3 +9,13 @@ Perform [Artifactory configuration steps](/docker) then append following snippet
     </snapshotRepository>
   </distributionManagement>
 ```
+To add this snippet via Business Central switch to repository view in Project Explorer:
+![BC-1](/doc/images/bc_1.png)
+Then click on pom.xml to edit the file:
+![BC-2](/doc/images/bc_2.png)
+
+## KJAR Build
+To build KJAR just click **Build & Install** under **Build** menu:
+![BC-3](/doc/images/bc_3.png)
+After successful build the KJAR artifact(s) should be visible in maven repo:
+![maven_repo](/doc/images/maven_repo.png)
