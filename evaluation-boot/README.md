@@ -72,5 +72,5 @@ In order to use another AuthN & AuthZ framework/application this class should be
 
 ## Swagger Interface
 This implementation enables Swagger (`kieserver.swagger.enabled` property in application.yml). One can reach the Swagger UI via (AuthN needed using KIE Server users defined in ldap config file):
-`${APP_PROTOCOL}`://`${APP_HOST}`:`${APP_PORT}`/rest/api-docs/`${APP_PROTOCOL}`://`${APP_HOST}`:`${APP_PORT}`/rest/swagger.json
+`${APP_PROTOCOL}`://`${APP_HOST}`:`${APP_PORT}`/rest/api-docs/?url=`${APP_PROTOCOL}`://`${APP_HOST}`:`${APP_PORT}`/rest/swagger.json
 ![Swagger UI](/doc/images/swagger.png)
