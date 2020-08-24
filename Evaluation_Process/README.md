@@ -5,7 +5,7 @@ Perform [Artifactory configuration steps](/docker) then append following snippet
     <snapshotRepository>
         <id>snapshots</id>
         <name>${NAME}</name>
-        <url>${SNAPSHOT_REPO_URL}<e.g. http://mavenserver:8081/artifactory/pam></url>
+        <url>${SNAPSHOT_REPO_URL}(e.g. http://mavenserver:8081/artifactory/pam)</url>
     </snapshotRepository>
   </distributionManagement>
 ```
