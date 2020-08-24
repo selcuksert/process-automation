@@ -18,4 +18,6 @@ Then click on pom.xml to edit the file:
 To build KJAR just click **Build & Install** under **Build** menu:
 ![BC-3](/doc/images/bc_3.png)
 After successful build the KJAR artifact(s) should be visible in maven repo:
+![BC-4](/doc/images/bc_4.png)
+
 ![maven_repo](/doc/images/maven_repo.png)
